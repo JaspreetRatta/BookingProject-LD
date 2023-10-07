@@ -77,7 +77,7 @@ function DDRoom() {
   return (
     <Map
   
-      mapboxAccessToken="pk.eyJ1IjoidHJpcHB5a3VkaSIsImEiOiJjbG45MTJ1ZzEwMm41Mm1zZXFuZHJya25nIn0.PpLulG4hOrr86gECxzH7Pg"
+      mapboxAccessToken=""
       width="100%"
       height="100%"
       transitionDuration="200"
