@@ -2,11 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const cloudinary = require("cloudinary");
-
-cloudinary.config({
-  cloud_name: "douua6wpw",
-  api_key: "231848241114168",
-  api_secret: "7dbSPDl4hDlp2B9_IhRYSR4mhrM",
+cloudinary.config({ 
+  cloud_name: 'dopkisa4l', 
+  api_key: '683725344288849', 
+  api_secret: 'b_B6GoO7_N7kL2d9You59A8xpPc' 
 });
 
 

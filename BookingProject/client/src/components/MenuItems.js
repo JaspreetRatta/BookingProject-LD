@@ -24,7 +24,7 @@ const MenuItems = [
     path: "/client/src/Diary/AddMemory",
   },
   {
-    name: "Discusioon Room",
+    name: "Discussion Room",
     icon: "ri-file-list-line",
     path: "/client/src/pages/map/DDRoom.js",
   },

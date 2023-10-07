@@ -12,7 +12,7 @@ const bookingsRoute = require("./routes/bookingsRoute");
 const tourRoute = require("./routes/tourRoute");
 const cloundinaryRoute = require ("./routes/cloudinaryRoute.js");
 const memoriesRoute = require("./routes/memoriesRoute");
-const pinRoute = require("./routes/pinsRoute");
+const pin = require("./routes/pins");
 const reviewRoute = require('./routes/reviewRoute')
 
 app.use(bodyParser.urlencoded({extended:true,parameterLimit:100000,limit:"500mb"}))
@@ -27,7 +27,7 @@ app.use("/api/bookings", bookingsRoute);
 app.use("/api/tour",tourRoute);
 app.use('/api/memories', memoriesRoute);
 app.use("/api/cloundinary",cloundinaryRoute)
-app.use("/api/pins", pinRoute);
+app.use("/api/pins", pin);
 app.use("/api/review",reviewRoute)
 app.use(express.json())
 

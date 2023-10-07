@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../resourses/home.css";
 import { Container, Row, Col } from "reactstrap";
 import { message } from "antd";
-import heroImg from "../resourses/images/hero-img01.jpg";
-import heroImg02 from "../resourses//images/hero-img02.jpg";
-import heroVideo from "../resourses//images/hero-video.mp4";
+import heroImg from "../resourses/images/hero-img35.jpg";
+import heroImg02 from "../resourses//images/gallery-01.jpg";
+import heroVideo from "../resourses//images/thailand01.mp4";
 import worldImg from "../resourses//images/world.png";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -105,29 +105,68 @@ const House = () => {
         <Container>
           <Row>
             <Col lg="12" className="mb-5">
-              <Subtitle subtitle={"Explore"} />
-              <h2 className="featured__tour-title">Our featured Buses</h2>
+             
+              <h2 className="featured__tour-title">HoHo Travels</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam
-                ipsum nobis asperiores soluta voluptas quas voluptates.
-                Molestiae tempora dignissimos, animi praesentium molestias
-                perferendis porro expedita delectus. Soluta natus porro.
+              Introducing HoHo Travels - where bus and tour management becomes a breeze. We understand the complexities of managing tours, from scheduling buses to ensuring every traveler has a memorable experience. That's why we've developed a system that brings together cutting-edge technology and user-friendly interfaces. With HoHo Travels, managing tours is not just efficient—it's enjoyable
               </p>
             </Col>
+
           </Row>
         </Container>
       </section>
       {/* ============ featured tour section end ============ */}
 
-      <section className="message py-5">
-        <div className="container text-center">
-          <h1>We've got what you need!</h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic est
-            quis et iure tempora minima similique amet cum commodi id rerum, in
-            non doloremque veniam accusamus distinctio, at animi ea
-          </p>
-          <button className="btn btn-primary">Check it out!</button>
+      <section className="services">
+        <div className="container text-center1 py-5">
+
+          <h1>About our Website</h1>
+   <br/>
+          <div className="row">
+            <div className="col-md-4">
+              <div className="card">
+                <div className="card-body">
+                  <i className="fa fa-bar-chart myicon"></i>
+                  <h1>Save Memories</h1>
+                  <p>
+                  Travel is more than just reaching a destination; it's about the stories, experiences, and memories we create along the way. With our "Save Travel Memory" function, HoHo Travels ensures that every moment of your journey is preserved. Whether it's a breathtaking sunset you witnessed from the bus window, a heartwarming interaction with a fellow traveler, or the thrill of exploring a new city, our system allows you to capture and store these memories with ease.
+
+      
+
+                  </p>
+              
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card">
+                <div className="card-body">
+                  <i className="fa fa-bell-o myicon"></i>
+                  <h1>Affordable Tours</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Reprehenderit in molestias similique et, perferendis, officiis
+                    labore harum sequi deleniti itaque rem ea? Labore repellat
+                    doloribus, beatae perferendis placeat recusandae nam!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card">
+                <div className="card-body">
+                  <i className="fa fa-braille myicon"></i>
+                  <h1>Best Explanation</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Reprehenderit in molestias similique et, perferendis, officiis
+                    labore harum sequi deleniti itaque rem ea? Labore repellat
+                    doloribus, beatae perferendis placeat recusandae nam!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -152,6 +191,8 @@ const House = () => {
           </Row>
 
         </div>
+        </section>
+  <section>
         <div className="mb-5">
           <h1 className="mb-3">Recent Tour</h1>
           <Row
@@ -172,63 +213,30 @@ const House = () => {
         </div>
       </section>
 
-      <section className="services">
-        <div className="container text-center1 py-5">
-          <h1>About our services</h1>
+      
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12" className="mb-5">
+              
+              <h1 className="featured__tour-title">Let's Get In Touch!</h1>
+              <p>
+              Ready to travel and create memories with us? Give us a call or send us an
+            email and we will get back to you as soon as possible!
+              </p>
+              <i className="fa fa-phone myicon text-warning"></i>
+          <i className="fa fa-heart myicon text-danger"></i>
+          <p>+667930453444</p>
+          <p>saiyaanpyaare@gmaill.com</p>
+            </Col>
 
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card">
-                <div className="card-body">
-                  <i className="fa fa-bar-chart myicon"></i>
-                  <h1>Become a Travel Agent</h1>
-                  <p>
-                    You can also become a travel agent and add your buses for
-                    traveling. If you interested then go through this link or
-                    add button Link:- bus-business.herokuapp.com
-                  </p>
-                  <button
-                    className="btn btn-primary"
-                    href="bus-business.herokuapp.com"
-                  >
-                    Visit Site
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card">
-                <div className="card-body">
-                  <i className="fa fa-bell-o myicon"></i>
-                  <h1>Best Explanation</h1>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis,
-                    officiis labore harum sequi deleniti itaque rem ea? Labore
-                    repellat doloribus, beatae perferendis placeat recusandae
-                    nam!
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card">
-                <div className="card-body">
-                  <i className="fa fa-braille myicon"></i>
-                  <h1>Best Explanation</h1>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis,
-                    officiis labore harum sequi deleniti itaque rem ea? Labore
-                    repellat doloribus, beatae perferendis placeat recusandae
-                    nam!
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </Row>
+        </Container>
       </section>
+     
+
+
+     
     </>
   );
 };

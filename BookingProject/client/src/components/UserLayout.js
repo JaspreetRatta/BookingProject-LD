@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../resourses/user.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Navbar from "./Navbar";
+
 import Navbar2 from "./Navbar2";
 import userMenu from "./MenuItems";
 import { Menu, Badge, Layout, Breadcrumb } from "antd";
@@ -42,7 +42,7 @@ function UserLayout({ children }) {
         />
         <Content
           style={{
-            padding: "0 15%",
+            padding: "0.1%",
             minHeight:"100vh"
           }}
         >
@@ -51,20 +51,7 @@ function UserLayout({ children }) {
           </div>
         </Content>
 
-        <section >
-        <div className="container text-center">
-          <h1>Let's Get In Touch!</h1>
-          <p>
-            Ready to start your next project with us? Give us a call or send us an
-            email and we will get back to you as soon as possible!
-          </p>
-          <i className="fa fa-phone myicon text-warning"></i>
-          <i className="fa fa-heart myicon text-danger"></i>
-          <p>+667930453444</p>
-          <p>saiyaandaaldenge@gmaill.com</p>
-        </div>
-      </section>
-
+        
       
       <section className="footer bg-dark">
         <div className="container py-5 text-white text-center">
