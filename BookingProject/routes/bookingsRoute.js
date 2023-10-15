@@ -160,9 +160,9 @@ const addPoint = async (id) => {
   try {
     const user = await User.findById(id);
     if (user && user.point > 0) {
-      user.point += 1;
+      user.point += 15;
     } else {
-      user.point = 1;
+      user.point = 15;
     }
     await user.save();
     return true;
