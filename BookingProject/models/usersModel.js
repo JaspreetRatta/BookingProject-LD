@@ -18,13 +18,20 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    isBlocked : {
+    isBlocked: {
       type: Boolean,
       default: false,
     },
     isprofilePicture: {
       type: String,
       default: 'default-profile-picture.jpg', // Set a default profile picture
+    },
+    profilePicture: {
+      type: String,
+    },
+    point: {
+      type: Number,
+      default: 0,
     },
   },
   {

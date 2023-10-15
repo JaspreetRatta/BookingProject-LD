@@ -1,12 +1,12 @@
-import { message, Modal, Table, Form, Rate, Input, Button } from "antd";
-import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import PageTitle from "../components/PageTitle";
-import { axiosInstance } from "../helpers/axiosInstance";
-import { HideLoading, ShowLoading } from "../redux/alertsSlice";
-import { useReactToPrint } from "react-to-print";
-import { useSelector } from "react-redux";
+import { message, Modal, Table, Form, Rate, Input, Button } from 'antd';
+import moment from 'moment';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PageTitle from '../components/PageTitle';
+import { axiosInstance } from '../helpers/axiosInstance';
+import { HideLoading, ShowLoading } from '../redux/alertsSlice';
+import { useReactToPrint } from 'react-to-print';
+import { useSelector } from 'react-redux';
 
 const BookingsTour = () => {
   const { users } = useSelector((state) => ({ ...state }));
@@ -24,7 +24,6 @@ const BookingsTour = () => {
   }, [valuesReview]);
   console.log(selectedBooking);
   const onFinish = async (values) => {
-   
     const tempValuesReview = {
       ...valuesReview,
       rating: values.rating,
@@ -34,15 +33,12 @@ const BookingsTour = () => {
       reviewStatus: true,
       category: selectedBooking.category,
       booking_id: selectedBooking.key,
-      title:selectedBooking.tour.title,
-      tour_id:selectedBooking.tour._id
+      title: selectedBooking.tour.title,
+      tour_id: selectedBooking.tour._id,
     };
 
     try {
-      const response = await axiosInstance.post(
-        "/api/review/create_review",
-        tempValuesReview
-      );
+      const response = await axiosInstance.post('/api/review/create_review', tempValuesReview);
       console.log(response.data);
       getBookings();
       form.resetFields();
@@ -74,33 +70,20 @@ const BookingsTour = () => {
 
   const columns = [
     {
-      title: "Bus Name",
-      dataIndex: "title",
-      key: "bus",
+      title: 'Tour Name',
+      dataIndex: 'title',
+      key: 'tour',
+      width: '50%',
     },
     {
-      title: "Bus Number",
-      dataIndex: "number",
-      key: "bus",
+      title: 'Journey Date',
+      dataIndex: 'journeyDate',
+      width: '30%',
     },
     {
-      title: "Journey Date",
-      dataIndex: "journeyDate",
-    },
-    {
-      title: "Journey Time",
-      dataIndex: "departure",
-    },
-    {
-      title: "Seats",
-      dataIndex: "seats",
-      render: (seats) => {
-        return seats
-      },
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
+      title: 'Action',
+      dataIndex: 'action',
+      width: '20%',
       render: (text, record) => (
         <div>
           <p
@@ -118,7 +101,6 @@ const BookingsTour = () => {
               onClick={() => {
                 showModal();
                 setSelectedBooking(record);
-                console.log(record);
               }}
             >
               Review
@@ -132,10 +114,7 @@ const BookingsTour = () => {
   const getBookings = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post(
-        "/api/bookings/get-bookings-by-user-id-tour",
-        {}
-      );
+      const response = await axiosInstance.post('/api/bookings/get-bookings-by-user-id-tour', {});
       dispatch(HideLoading());
       if (response.data.success) {
         const mappedData = response.data.data.map((booking) => {
@@ -163,12 +142,7 @@ const BookingsTour = () => {
   return (
     <>
       <div>
-        <Modal
-          title="Review"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
+        <Modal title="Review" visible={visible} onOk={handleOk} onCancel={handleCancel}>
           <Form form={form} onFinish={onFinish}>
             <Form.Item
               name="comment"
@@ -176,7 +150,7 @@ const BookingsTour = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please leave a comment!",
+                  message: 'Please leave a comment!',
                 },
               ]}
             >
@@ -190,7 +164,7 @@ const BookingsTour = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please give a rating!",
+                  message: 'Please give a rating!',
                 },
               ]}
             >
@@ -218,16 +192,14 @@ const BookingsTour = () => {
             <p>User : {users.user.name}</p>
             <hr />
             <p>
-              <span>Journey Date :</span>{" "}
-              {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
+              <span>Journey Date :</span> {moment(selectedBooking.journeyDate).format('DD-MM-YYYY')}
             </p>
             <p>
-              <span>Journey Time :</span> {selectedBooking.duration} {" Day "}
+              <span>Journey Time :</span> {selectedBooking.duration} {' Day '}
             </p>
             <hr />
             <p>
-              <span>Total Amount :</span>{" "}
-              {selectedBooking.price}
+              <span>Total Amount :</span> {selectedBooking.price}
             </p>
           </div>
         </Modal>
@@ -239,7 +211,6 @@ const BookingsTour = () => {
           <Table dataSource={bookings} columns={columns} />
         </div>
       </div>
-
     </>
   );
 };

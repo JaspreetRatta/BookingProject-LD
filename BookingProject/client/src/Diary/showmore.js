@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import {
   Card, Spin, Alert, Button, Form, Input, notification,
-  Modal, Popconfirm, Space, Avatar, DatePicker 
+  Modal, Popconfirm, Space, Avatar, DatePicker, Carousel
 } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import moment from 'moment';
@@ -60,7 +60,7 @@ const ShowMore = () => {
         location: edit.location ? edit.location : memories?.location,
       });
       notification.success({ message: response.data.message });
-      window.location.reload();
+      setMemories(edit)
     } catch (error) {
       console.error("Error updating memory:", error);
       notification.error({ message: "Error updating memory!" });
@@ -68,6 +68,7 @@ const ShowMore = () => {
   };
 
   const showModal = () => {
+    setEdit(memories)
     setIsModalVisible(true);
   };
 
@@ -91,7 +92,14 @@ const ShowMore = () => {
           <Card
             style={{ width: 350 }}
             cover={
-              <img alt="example" src="https://via.placeholder.com/350" />
+              <Carousel autoplay>
+                {memories?.images.map((col, index) => (
+                  <div>
+                    <img className="img-showmore" alt="..." src={col} />
+                  </div>
+                ))}
+
+              </Carousel>
             }
             actions={[
               <Popconfirm
@@ -116,9 +124,9 @@ const ShowMore = () => {
                 <>
                   <p><strong>Location:</strong> {memories?.location}</p>
                   <p><strong>Description:</strong></p>
-                  <Input.TextArea 
+                  <Input.TextArea
                     value={memories?.description}
-                    autoSize={{ minRows: 3, maxRows: 10}}
+                    autoSize={{ minRows: 3, maxRows: 10 }}
                     readOnly
                     bordered={false}
                     style={{ width: '100%', resize: 'none', color: 'rgba(0, 0, 0, 0.65)' }}

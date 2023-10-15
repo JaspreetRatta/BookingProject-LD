@@ -3,13 +3,13 @@
 
 /* Styles for the top navigation bar */
 .user-topnav {
- 
+
   color: #121010;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  
+
 }
 
 /* Styles for the user-logo */
@@ -36,8 +36,15 @@
 .user-menu-item {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 8px 15px;
   cursor: pointer;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
 }
 
 /* Styles for the active menu item */
@@ -47,6 +54,7 @@
 
 /* Styles for the media query (to control responsiveness) */
 @media screen and (max-width: 768px) {
+
   /* Hide the user-logo on smaller screens when collapsed */
   .user-logo {
     display: none;

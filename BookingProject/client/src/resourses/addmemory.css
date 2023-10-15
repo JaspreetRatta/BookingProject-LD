@@ -32,7 +32,7 @@
 }
 
 /* Form Styles */
-.ant-form-item-label > label {
+.ant-form-item-label>label {
   color: #333;
   font-weight: 600;
 }
@@ -61,10 +61,18 @@
 .ant-tooltip-inner {
   background-color: #3A7BDB;
   border-radius: 8px;
+  display: none;
 }
 
 .ant-tooltip-arrow-content {
   background-color: #3A7BDB;
+}
+
+.img-showmore {
+  width: 100%;
+  height: 350px;
+  max-width: 350px;
+  margin: auto;
 }
 
 /* Responsive Styles */

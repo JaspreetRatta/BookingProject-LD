@@ -1,33 +1,38 @@
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/profile-pictures'); // Set the destination folder for profile pictures
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const extension = file.originalname.split('.').pop();
-    cb(null, `${uniqueSuffix}.${extension}`); // Set the file name for the profile picture
-  },
-});
-
-const upload = multer({ storage });
-
-// Handle profile picture upload
-router.post('/profile-picture', upload.single('profilePicture'), (req, res) => {
-  // Access the uploaded file details using req.file
-  // Store the file information in the database or upload it to a cloud storage service
-  // Update the user's profile with the profile picture URL or other relevant information
-
-  res.status(200).json({ message: 'Profile picture uploaded successfully' });
-});
+const router = require("express").Router();
+const User = require("../models/usersModel");
+const bcrypt = require("bcryptjs");
+const fs = require("fs");
+const path = require("path");
+const upload = require('../config/multer.js');
+const { deleteFile, uploadFile } = require("../middlewares/cloudinary.js")
 
 // Handle profile update
-router.post('/', (req, res) => {
-  const { name } = req.body;
-  // Update the user's profile with the new information
+router.put('/:id', upload.single('profilePicture'), async (req, res) => {
+  let body = req.body;
+  const id = req.params.id;
+  if (req.file) {
+    const user = await User.findById(id);
+    if (user.profilePicture) {
+      // remove File
+      const arr = user.profilePicture.split("/")
+      const fileName = arr[arr.length - 1]
+      await deleteFile(fileName.split('.')[0]);
+    }
+    const fileName = path.resolve(__dirname, '../uploads/' + req.file.filename)
+    const result = await uploadFile(fileName, 'avatar')
+    body.profilePicture = result.url
+    fs.unlinkSync(fileName);
+  }
 
-  res.status(200).json({ message: 'Profile updated successfully' });
+  if (body.password) {
+    const hashedPassword = await bcrypt.hash(body.password, 10);
+    body.password = hashedPassword;
+  }
+  await User.findByIdAndUpdate(id, body);
+  return res.status(200).send({
+    success: true,
+    message: "Profile updated successfully",
+  });
 });
 
 module.exports = router;

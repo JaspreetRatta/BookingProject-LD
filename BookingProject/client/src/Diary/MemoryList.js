@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { List, Card, message, Button, Typography, Image, Space } from "antd";
+import { List, Card, message, Button, Typography, Image, Space, Row, Col } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography;
 
@@ -60,12 +60,16 @@ function MemoryList() {
                 <Text strong>{memory.location}</Text>
                 <Text>{memory.description}</Text>
                 {memory.images && memory.images[0] && (
-                  <Image
-                    width={200}
-                    alt={memory.title}
-                    src={memory.images[0]}
-                    style={{ borderRadius: "8px" }}
-                  />
+                  <Row justify="center">
+                    <Col span={12} offset={6} style={{ marginLeft: "6rem" }}>
+                      <Image
+                        width={200}
+                        alt={memory.title}
+                        src={memory.images[0]}
+                        style={{ borderRadius: "8px" }}
+                      />
+                    </Col>
+                  </Row>
                 )}
                 <div>
                   <Link to={`/client/src/Diary/showmore/${memory._id}`}>
@@ -77,9 +81,10 @@ function MemoryList() {
               </Space>
             </Card>
           </List.Item>
-        )}
+        )
+        }
       />
-    </div>
+    </div >
   );
 }
 
