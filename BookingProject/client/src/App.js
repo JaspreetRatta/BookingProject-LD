@@ -1,5 +1,5 @@
 import "antd/dist/antd.min.css";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./resourses/global.css";
 import "font-awesome/css/font-awesome.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,7 +16,7 @@ import AddMemory from "./Diary/AddMemory";
 import MemoryList from "./Diary/MemoryList";
 import ShowMore from "./Diary/showmore";
 
-import DDRoom  from "./pages/map/DDRoom";
+import DDRoom from "./pages/map/DDRoom";
 
 import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -33,6 +33,7 @@ import ShowBus from "./pages/BusPages/ShowBus";
 import BookingsTour from "./pages/BookingsTour";
 import Bookings from "./pages/Bookings";
 import AdminBookings from "./pages/Admin/AdminBookings";
+import AdminCoupons from "./pages/Admin/AdminCoupons";
 import SingleTourCard from "./components/SingleTourCard";
 
 function App() {
@@ -115,35 +116,35 @@ function App() {
               </ProtectedRoute>
             }
           />
-      <Route
+          <Route
             path="/client/src/Diary/AddMemory"
             element={
               <ProtectedRoute>
-                <AddMemory/>
+                <AddMemory />
               </ProtectedRoute>
             }
           />
-<Route
+          <Route
             path="/client/src/Diary/MemoryList"
             element={
               <ProtectedRoute>
-                <MemoryList/>
+                <MemoryList />
               </ProtectedRoute>
             }
           />
-<Route
+          <Route
             path="/client/src/Diary/showmore/:id"
             element={
               <ProtectedRoute>
-                <ShowMore/>
+                <ShowMore />
               </ProtectedRoute>
             }
           />
-<Route
+          <Route
             path="/client/src/pages/map/DDRoom.js"
             element={
               <ProtectedRoute>
-                <DDRoom/>
+                <DDRoom />
               </ProtectedRoute>
             }
           />
@@ -231,6 +232,14 @@ function App() {
               <PublicRoute>
                 <Login />
               </PublicRoute>
+            }
+          />
+          <Route
+            path="/admin/coupons"
+            element={
+              <ProtectedRoute>
+                <AdminCoupons />
+              </ProtectedRoute>
             }
           />
         </Routes>

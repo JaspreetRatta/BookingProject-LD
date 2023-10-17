@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, message, Row, Card, Switch, Typography, Space, Divider, Button, Statistic, Rate, Form, Input, Modal, InputNumber } from 'antd';
+import { Col, message, Row, Card, Switch, Typography, Space, Divider, Button, Statistic, Rate, Form, Radio, Modal, InputNumber } from 'antd';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
@@ -19,11 +19,16 @@ const SingleTourCard = () => {
   const [point, setUserPoint] = useState(null);
   const [checkDiscount, setCheckDiscount] = useState(true);
   const [discount, setDiscount] = useState(0);
+  const [coupons, setCoupons] = useState([]);
+  const [showDiscount, setShowDiscount] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     onGetProfile();
   }, []);
+  useEffect(() => {
+    onGetCoupon();
+  }, [point]);
 
   const onGetProfile = async () => {
     try {
@@ -33,7 +38,19 @@ const SingleTourCard = () => {
       if (response.data.success) {
         const point = response.data.data;
         setUserPoint(point);
-        setDiscount(point >= 1000 ? Math.round(point / 1000) * 100 : 0);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+    }
+  };
+
+  const onGetCoupon = async () => {
+    try {
+      const response = await axiosInstance.post('/api/coupons/list-coupon');
+      dispatch(HideLoading());
+      if (response.data) {
+        const coupons = response.data.filter((x) => x.point <= point);
+        setCoupons(coupons);
       }
     } catch (error) {
       dispatch(HideLoading());
@@ -46,7 +63,7 @@ const SingleTourCard = () => {
       const response = await axiosInstance.post('/api/bookings/book-tour', {
         tour: tour._id,
         category: 'tour',
-        discount: checkDiscount ? discount : 0,
+        discount: checkDiscount ? discount.point : 0,
         transactionId,
       });
       dispatch(HideLoading());
@@ -161,38 +178,33 @@ const SingleTourCard = () => {
                     Buy
                   </Button> */}
 
-                  <div className="payment-options">
-                    <StripeCheckout
-                      billingAddress
-                      token={onToken}
-                      amount={checkDiscount ? (tour.price - discount) * 100 : tour.price * 100}
-                      currency="THB"
-                      stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
-                    >
-                      <button className="primary-btn">Pay with Card</button>
-                    </StripeCheckout>
-                  </div>
+                  {coupons.length > 0 && (
+                    <div className="payment-options">
+                      <button className="primary-btn" onClick={() => setShowDiscount(true)}>
+                        Pay with Card
+                      </button>
+                    </div>
+                  )}
+                  {coupons.length === 0 && (
+                    <div className="payment-options">
+                      <StripeCheckout
+                        billingAddress
+                        token={onToken}
+                        amount={tour.price * 100}
+                        currency="THB"
+                        stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+                      >
+                        <button className="primary-btn">Pay with Card</button>
+                      </StripeCheckout>
+                    </div>
+                  )}
                 </Row>
 
                 <Text strong>Journey Date : {tour.journeyDate}</Text>
                 <br />
                 <Text strong>Duration : {tour.duration} days</Text>
                 <br />
-                {discount >= 100 && (
-                  <Form.Item label="Use Discount" valuePropName="checked">
-                    <Switch
-                      checked={checkDiscount}
-                      checkedChildren="yes"
-                      unCheckedChildren="no"
-                      onChange={() => {
-                        setCheckDiscount(!checkDiscount);
-                      }}
-                    />
-                  </Form.Item>
-                )}
-                <Text strong>Discount : {discount >= 100 && checkDiscount ? discount : 0} </Text>
-                <br />
-                <Text strong>Price : {checkDiscount ? tour.price - discount : tour.price} THB / person</Text>
+                <Text strong>Price : {tour.price} THB / person</Text>
                 <Divider />
                 <Text>{tour.description}</Text>
                 <Divider />
@@ -206,6 +218,55 @@ const SingleTourCard = () => {
           <Title level={3}>Customer Reviews</Title>
           <ReviewCustomer review={review} />
         </Card>
+      )}
+      {tour && (
+        <Modal width={300} title={'Discount?'} visible={showDiscount} onCancel={() => setShowDiscount(false)} footer={false}>
+          <Row gutter={[10, 10]}>
+            <Col lg={24} xs={24}>
+              {coupons.length > 0 && (
+                <Form.Item label="Use" valuePropName="checked">
+                  <Switch
+                    checked={checkDiscount}
+                    checkedChildren="yes"
+                    unCheckedChildren="no"
+                    onChange={() => {
+                      setCheckDiscount(!checkDiscount);
+                    }}
+                  />
+                </Form.Item>
+              )}
+            </Col>
+            {checkDiscount && (
+              <Col lg={24} xs={24}>
+                <Radio.Group
+                  onChange={(event) => {
+                    setDiscount(event.target.value);
+                  }}
+                >
+                  <Space direction="vertical">
+                    {coupons.map((coupon) => (
+                      <Radio value={coupon}>{coupon.discount} THB</Radio>
+                    ))}
+                  </Space>
+                </Radio.Group>
+              </Col>
+            )}
+          </Row>
+
+          <div className="d-flex justify-content-end mt-2">
+            <StripeCheckout
+              billingAddress
+              token={onToken}
+              amount={checkDiscount ? (tour.price - discount.discount) * 100 : tour.price * 100}
+              currency="THB"
+              stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+            >
+              <button className="primary-btn" onClick={() => setShowDiscount(false)}>
+                Next
+              </button>
+            </StripeCheckout>
+          </div>
+        </Modal>
       )}
     </div>
   );

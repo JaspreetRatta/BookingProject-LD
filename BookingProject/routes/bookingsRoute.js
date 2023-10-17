@@ -175,7 +175,7 @@ const removePoint = async (id, point) => {
   try {
     const user = await User.findById(id);
     if (user && user.point > 0) {
-      user.point = user.point - point * 10;
+      user.point = user.point - point;
     }
     await user.save();
     return true;

@@ -36,6 +36,11 @@ function AdminLayout({ children }) {
       icon: "ri-file-list-line",
     },
     {
+      name: "Coupon",
+      path: "/admin/coupons",
+      icon: "ri-coupon-line",
+    },
+    {
       name: "Logout",
       path: "/logout",
       icon: "ri-logout-box-line",
@@ -52,17 +57,9 @@ function AdminLayout({ children }) {
       <div className="sidebar">
         <div className="sidebar-header">
           {collapsed ? (
-            <i
-              className="ri-menu-2-fill"
-              style={{ color: "white" }}
-              onClick={() => setCollapsed(!collapsed)}
-            ></i>
+            <i className="ri-menu-2-fill" style={{ color: "white" }} onClick={() => setCollapsed(!collapsed)}></i>
           ) : (
-            <i
-              className="ri-close-line"
-              style={{ color: "white" }}
-              onClick={() => setCollapsed(!collapsed)}
-            ></i>
+            <i className="ri-close-line" style={{ color: "white" }} onClick={() => setCollapsed(!collapsed)}></i>
           )}
 
           <h1 className="logo">HoHo</h1>
@@ -75,11 +72,7 @@ function AdminLayout({ children }) {
         <div className="d-flex flex-column gap-3 justify-content-start menu">
           {adminMenu.map((item, index) => {
             return (
-              <div
-                className={`${
-                  activeRoute === item.path && "active-menu-item"
-                } menu-item`}
-              >
+              <div className={`${activeRoute === item.path && "active-menu-item"} menu-item`}>
                 <i className={item.icon}></i>
                 {!collapsed && (
                   <span

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { PlusOutlined } from '@ant-design/icons';
-import { Form, Input, Button, Upload, Col, Row, Typography, Card, Alert } from 'antd';
+import { Form, Input, Button, Upload, Col, Row, Typography, Card, Alert, Progress } from 'antd';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import '../resourses/profile.css';
 
@@ -15,11 +15,15 @@ function ProfilePage() {
   const [profilePicture, setProfilePicture] = useState(null);
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState(null);
+  const [coupon, setCoupon] = useState(null);
   // Add other profile fields as needed
 
   useEffect(() => {
     onGetProfile();
   }, []);
+  useEffect(() => {
+    onGetCoupon();
+  }, [user]);
 
   const onGetProfile = async () => {
     try {
@@ -33,11 +37,35 @@ function ProfilePage() {
           },
         }
       );
-      dispatch(HideLoading());
       if (response.data.success) {
         const user = response.data.data;
         setProfilePicture(user.profilePicture);
         setUser(user);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+    }
+  };
+
+  const onGetCoupon = async () => {
+    try {
+      const response = await axios.post(
+        '/api/coupons/list-coupon',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      dispatch(HideLoading());
+      if (response.data) {
+        const coupons = response.data.filter((x) => x.point >= user.point);
+        if (coupons.length === 0) {
+          setCoupon(response.data[response.data.length - 1]);
+        } else {
+          setCoupon(coupons[0]);
+        }
       }
     } catch (error) {
       dispatch(HideLoading());
@@ -112,9 +140,9 @@ function ProfilePage() {
         >
           <div style={{ paddingTop: '1rem', margin: 'auto' }}>
             <Row style={{ marginBottom: '1rem' }}>
-              <Col span={3} offset={3}>
+              <Col span={6} offset={2}>
                 <Title style={{ color: '#00bf4e' }} level={4}>
-                  Your Point : {user?.point || 0}{' '}
+                  Points : {user?.point} / {coupon?.point} <Progress percent={(user?.point * 100) / coupon?.point} showInfo={false} />
                 </Title>
               </Col>
             </Row>
