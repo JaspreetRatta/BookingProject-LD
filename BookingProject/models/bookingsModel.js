@@ -23,12 +23,16 @@ const bookingSchema = new mongoose.Schema(
     },
     reviewStatus: {
       type: Boolean,
-      default:false
+      default: false,
     },
-    category:{
-      type:String,
-      default:"bus"
-    }
+    category: {
+      type: String,
+      default: "bus",
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

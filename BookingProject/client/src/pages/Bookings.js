@@ -22,7 +22,6 @@ const Bookings = () => {
     getBookings();
   }, [valuesReview]);
 
-
   const onFinish = async (values) => {
     const tempValuesReview = {
       ...valuesReview,
@@ -39,10 +38,7 @@ const Bookings = () => {
     };
 
     try {
-      const response = await axiosInstance.post(
-        "/api/review/create",
-        tempValuesReview
-      );
+      const response = await axiosInstance.post("/api/review/create", tempValuesReview);
       console.log(response.data);
       getBookings();
       form.resetFields();
@@ -129,16 +125,10 @@ const Bookings = () => {
     },
   ];
 
-
-
-
   const getBookings = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post(
-        "/api/bookings/get-bookings-by-user-id",
-        {}
-      );
+      const response = await axiosInstance.post("/api/bookings/get-bookings-by-user-id", {});
       dispatch(HideLoading());
       if (response.data.success) {
         const mappedData = response.data.data.map((booking) => {
@@ -166,12 +156,7 @@ const Bookings = () => {
   return (
     <>
       <div>
-        <Modal
-          title="Review"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
+        <Modal title="Review" visible={visible} onOk={handleOk} onCancel={handleCancel}>
           <Form form={form} onFinish={onFinish}>
             <Form.Item
               name="comment"
@@ -224,8 +209,7 @@ const Bookings = () => {
             <p>User : {users.user.name}</p>
             <hr />
             <p>
-              <span>Journey Date:</span>{" "}
-              {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
+              <span>Journey Date:</span> {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
             </p>
             <p>
               <span>Journey Time:</span> {selectedBooking.departure}
@@ -237,8 +221,7 @@ const Bookings = () => {
             </p>
             <hr />
             <p>
-              <span>Total Amount:</span>{" "}
-              {selectedBooking.fare * selectedBooking.seats.length} /-
+              <span>Total Amount:</span> {selectedBooking.fare * selectedBooking.seats.length - selectedBooking.discount} /-
             </p>
           </div>
         </Modal>
@@ -250,7 +233,6 @@ const Bookings = () => {
           <Table dataSource={bookings} columns={columns} />
         </div>
       </div>
-
     </>
   );
 };

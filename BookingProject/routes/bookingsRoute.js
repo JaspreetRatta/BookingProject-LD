@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const Booking = require('../models/bookingsModel');
-const BookingTour = require('../models/bookingsTourModel');
-const Tour = require('../models/tourModel');
-const Bus = require('../models/busModel');
-const User = require('../models/usersModel');
-const stripe = require('stripe')(process.env.stripe_key);
-const { v4: uuidv4 } = require('uuid');
+const router = require("express").Router();
+const authMiddleware = require("../middlewares/authMiddleware");
+const Booking = require("../models/bookingsModel");
+const BookingTour = require("../models/bookingsTourModel");
+const Tour = require("../models/tourModel");
+const Bus = require("../models/busModel");
+const User = require("../models/usersModel");
+const stripe = require("stripe")(process.env.stripe_key);
+const { v4: uuidv4 } = require("uuid");
 // book a seat
 
-router.post('/book-seat', authMiddleware, async (req, res) => {
+router.post("/book-seat", authMiddleware, async (req, res) => {
   try {
     const newBooking = new Booking({
       ...req.body,
@@ -24,20 +24,20 @@ router.post('/book-seat', authMiddleware, async (req, res) => {
     }
     await addPoint(req.body.userId);
     res.status(200).send({
-      message: 'Booking successful',
+      message: "Booking successful",
       data: newBooking,
       success: true,
     });
   } catch (error) {
     res.status(500).send({
-      message: 'Booking failed',
+      message: "Booking failed",
       data: error,
       success: false,
     });
   }
 });
 
-router.post('/book-tour', authMiddleware, async (req, res) => {
+router.post("/book-tour", authMiddleware, async (req, res) => {
   try {
     const newBooking = new BookingTour({
       ...req.body,
@@ -50,7 +50,7 @@ router.post('/book-tour', authMiddleware, async (req, res) => {
     await addPoint(req.body.userId);
 
     res.status(200).send({
-      message: 'Booking successful',
+      message: "Booking successful",
       data: newBooking,
       success: true,
     });
@@ -59,7 +59,7 @@ router.post('/book-tour', authMiddleware, async (req, res) => {
 
 // make payment
 
-router.post('/make-payment', authMiddleware, async (req, res) => {
+router.post("/make-payment", authMiddleware, async (req, res) => {
   try {
     const { token, amount } = req.body;
     const customer = await stripe.customers.create({
@@ -69,7 +69,7 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
     const payment = await stripe.charges.create(
       {
         amount: amount,
-        currency: 'inr',
+        currency: "inr",
         customer: customer.id,
         receipt_email: token.email,
       },
@@ -80,7 +80,7 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
 
     if (payment) {
       res.status(200).send({
-        message: 'Payment successful',
+        message: "Payment successful",
         data: {
           transactionId: payment.source.id,
         },
@@ -88,7 +88,7 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
       });
     } else {
       res.status(500).send({
-        message: 'Payment failed',
+        message: "Payment failed",
         data: error,
         success: false,
       });
@@ -96,7 +96,7 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: 'Payment failed',
+      message: "Payment failed",
       data: error,
       success: false,
     });
@@ -104,34 +104,34 @@ router.post('/make-payment', authMiddleware, async (req, res) => {
 });
 
 // get bookings by user id
-router.post('/get-bookings-by-user-id', authMiddleware, async (req, res) => {
+router.post("/get-bookings-by-user-id", authMiddleware, async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.body.userId }).populate('bus').populate('tour').populate('user');
+    const bookings = await Booking.find({ user: req.body.userId }).populate("bus").populate("tour").populate("user");
     res.status(200).send({
-      message: 'Bookings fetched successfully',
+      message: "Bookings fetched successfully",
       data: bookings,
       success: true,
     });
   } catch (error) {
     res.status(500).send({
-      message: 'Bookings fetch failed',
+      message: "Bookings fetch failed",
       data: error,
       success: false,
     });
   }
 });
 
-router.post('/get-bookings-by-user-id-tour', authMiddleware, async (req, res) => {
+router.post("/get-bookings-by-user-id-tour", authMiddleware, async (req, res) => {
   try {
-    const bookings = await BookingTour.find({ user: req.body.userId }).populate('tour').populate('user');
+    const bookings = await BookingTour.find({ user: req.body.userId }).populate("tour").populate("user");
     res.status(200).send({
-      message: 'Bookings fetched successfully',
+      message: "Bookings fetched successfully",
       data: bookings,
       success: true,
     });
   } catch (error) {
     res.status(500).send({
-      message: 'Bookings fetch failed',
+      message: "Bookings fetch failed",
       data: error,
       success: false,
     });
@@ -139,17 +139,17 @@ router.post('/get-bookings-by-user-id-tour', authMiddleware, async (req, res) =>
 });
 
 // get all bookings
-router.post('/get-all-bookings', authMiddleware, async (req, res) => {
+router.post("/get-all-bookings", authMiddleware, async (req, res) => {
   try {
-    const bookings = await Booking.find().populate('bus').populate('user').populate('tour');
+    const bookings = await Booking.find().populate("bus").populate("user").populate("tour");
     res.status(200).send({
-      message: 'Bookings fetched successfully',
+      message: "Bookings fetched successfully",
       data: bookings,
       success: true,
     });
   } catch (error) {
     res.status(500).send({
-      message: 'Bookings fetch failed',
+      message: "Bookings fetch failed",
       data: error,
       success: false,
     });
