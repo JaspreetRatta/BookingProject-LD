@@ -55,7 +55,7 @@ function UserLayout({ children }) {
       
       <section className="footer bg-dark">
         <div className="container py-5 text-white text-center">
-          <p>Copyright © 2021 -Ultimate Pvt Ltd.</p>
+          <p>Copyright © 2023 -Ultimate Pvt Ltd.</p>
         </div>
       </section>
       </Layout>
