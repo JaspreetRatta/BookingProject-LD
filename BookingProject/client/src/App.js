@@ -17,7 +17,7 @@ import MemoryList from "./Diary/MemoryList";
 import ShowMore from "./Diary/showmore";
 
 import DDRoom from "./pages/map/DDRoom";
-
+import AdminBookingsTourr from "./pages/Admin/booktour";
 import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Loader from "./components/Loader";
@@ -217,7 +217,14 @@ function App() {
               </PublicRoute>
             }
           />
-
+<Route
+            path="/admin/booktour"
+            element={
+              <ProtectedRoute>
+                < AdminBookingsTourr/>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/ResetPassword"
             element={

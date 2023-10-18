@@ -62,7 +62,7 @@ function Login() {
             <div className="d-flex justify-content-between align-items-center my-3">
               <Link to="/register">Click Here To Register</Link>
             </div>
-            <Link to="/ResetPassword">Forgot Password? </Link>
+           
           </div>
         </Form>
       </div>

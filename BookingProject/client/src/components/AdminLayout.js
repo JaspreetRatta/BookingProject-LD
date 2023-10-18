@@ -10,11 +10,7 @@ function AdminLayout({ children }) {
   const { user } = useSelector((state) => state.users);
 
   const adminMenu = [
-    {
-      name: "Home",
-      path: "/admin/AdminHome",
-      icon: "ri-home-line",
-    },
+   
     {
       name: "Buses",
       path: "/admin/buses",
@@ -35,6 +31,13 @@ function AdminLayout({ children }) {
       path: "/admin/bookings",
       icon: "ri-file-list-line",
     },
+    
+    {
+      name: "Tour Bookings",
+      path: "/admin/booktour",
+      icon: "ri-file-list-line",
+    },
+ 
     {
       name: "Coupon",
       path: "/admin/coupons",

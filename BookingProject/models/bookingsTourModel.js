@@ -21,7 +21,11 @@ const bookingTourSchema = new mongoose.Schema(
     category:{
       type:String,
       default:"tour"
-    }
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    } 
   },
   {
     timestamps: true,

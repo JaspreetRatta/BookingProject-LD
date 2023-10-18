@@ -8,6 +8,7 @@ import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import StripeCheckout from 'react-stripe-checkout';
 
 function BookNow() {
+  const COMMISSION = 70; // 70 THB commission
   const [selectedSeats, setSelectedSeats] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
@@ -104,9 +105,10 @@ function BookNow() {
   const onToken = async (token) => {
     try {
       dispatch(ShowLoading());
+      const totalFareWithCommission = (bus.fare + COMMISSION) * selectedSeats.length * 100; // Adding the commission to the original fare
       const response = await axiosInstance.post('/api/bookings/make-payment', {
         token,
-        amount: selectedSeats.length * bus.fare * 100,
+        amount: totalFareWithCommission, // using the fare including commission
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -121,10 +123,7 @@ function BookNow() {
     }
   };
 
-  const paypalPayment = () => {
-    // Implement PayPal payment logic here
-    console.log('Perform PayPal payment');
-  };
+  
 
   useEffect(() => {
     getBus();
@@ -158,6 +157,9 @@ function BookNow() {
                 <div className="flex flex-col gap-2">
                   <h1 className="text-2xl">Selected Seats: {selectedSeats.join(', ')}</h1>
                   <h1 className="text-2xl mt-2">Fare: {bus.fare * selectedSeats.length} /-</h1>
+                  <h1 className="text-2xl mt-2">Snacks: {COMMISSION} /-</h1>
+                  <h1 className="text-2xl mt-2">Total Amount: {(bus.fare + COMMISSION) * selectedSeats.length} /-</h1>
+                  
                   <hr />
 
                   {coupons.length > 0 && (
@@ -176,9 +178,9 @@ function BookNow() {
                       <StripeCheckout
                         billingAddress
                         token={onToken}
-                        amount={bus.fare * selectedSeats.length * 100}
+                        amount={(bus.fare + COMMISSION) * selectedSeats.length * 100 }
                         currency="THB"
-                        stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+                        stripeKey="pk_test_51No2dzLzyWTDvO4mFVgg15J7SyIsIhnmesOOyDf6RknBT7aD2yfQxRWVyYwSKDHWRT0wpHyKXuPdvghPK0DbR2Xg00d2jB7qjP"
                       >
                         <button className={`primary-btn ${selectedSeats.length === 0 && 'disabled-btn'}`} disabled={selectedSeats.length === 0}>
                           Pay with Card
@@ -280,8 +282,8 @@ function BookNow() {
               token={onToken}
               amount={
                 checkDiscount && selectedSeats.length > 0
-                  ? (bus.fare * selectedSeats.length - discount.discount) * 100
-                  : bus.fare * selectedSeats.length * 100
+      ? ((bus.fare + COMMISSION) * selectedSeats.length - discount.discount) * 100 // include commission here
+      : (bus.fare + COMMISSION) * selectedSeats.length * 100 
               }
               currency="THB"
               stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"

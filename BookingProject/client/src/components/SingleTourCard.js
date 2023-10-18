@@ -6,6 +6,8 @@ import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import { axiosInstance } from '../helpers/axiosInstance';
 import StripeCheckout from 'react-stripe-checkout';
 import Review from './Review';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
 import ReviewCustomer from './ReviewCustomer';
 
 const { Title, Text } = Typography;
@@ -192,7 +194,7 @@ const SingleTourCard = () => {
                         token={onToken}
                         amount={tour.price * 100}
                         currency="THB"
-                        stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+                        stripeKey="pk_test_51No2dzLzyWTDvO4mFVgg15J7SyIsIhnmesOOyDf6RknBT7aD2yfQxRWVyYwSKDHWRT0wpHyKXuPdvghPK0DbR2Xg00d2jB7qjP"
                       >
                         <button className="primary-btn">Pay with Card</button>
                       </StripeCheckout>
@@ -205,11 +207,16 @@ const SingleTourCard = () => {
                 <Text strong>Duration : {tour.duration} days</Text>
                 <br />
                 <Text strong>Price : {tour.price} THB / person</Text>
+                <br />
+             
+                
                 <Divider />
                 <Text>{tour.description}</Text>
                 <Divider />
                 <Title level={3}>Tour Details</Title>
-                <Text>{tour.details}</Text>
+                
+              <div dangerouslySetInnerHTML={{ __html: tour.details }} />
+
               </div>
             </Col>
           </Row>
@@ -259,7 +266,7 @@ const SingleTourCard = () => {
               token={onToken}
               amount={checkDiscount ? (tour.price - discount.discount) * 100 : tour.price * 100}
               currency="THB"
-              stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+              stripeKey="pk_test_51No2dzLzyWTDvO4mFVgg15J7SyIsIhnmesOOyDf6RknBT7aD2yfQxRWVyYwSKDHWRT0wpHyKXuPdvghPK0DbR2Xg00d2jB7qjP"
             >
               <button className="primary-btn" onClick={() => setShowDiscount(false)}>
                 Next

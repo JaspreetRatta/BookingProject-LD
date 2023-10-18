@@ -47,7 +47,7 @@ function MemoryList() {
               extra={
                 <Button
                   danger
-                  icon={<DeleteOutlined />}
+                  
                   onClick={(e) => {
                     handleDelete(memory._id);
                   }}
@@ -58,7 +58,7 @@ function MemoryList() {
             >
               <Space direction="vertical" size={12}>
                 <Text strong>{memory.location}</Text>
-                <Text>{memory.description}</Text>
+                
                 {memory.images && memory.images[0] && (
                   <Row justify="center">
                     <Col span={12} offset={6} style={{ marginLeft: "6rem" }}>

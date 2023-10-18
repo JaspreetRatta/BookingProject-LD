@@ -90,7 +90,7 @@ const ShowMore = () => {
       ) : (
         <Space direction="vertical" size="large" align="center">
           <Card
-            style={{ width: 350 }}
+            style={{ width: 950 }}
             cover={
               <Carousel autoplay>
                 {memories?.images.map((col, index) => (
@@ -118,7 +118,7 @@ const ShowMore = () => {
             ]}
           >
             <Card.Meta
-              avatar={<Avatar src="https://via.placeholder.com/64" />}
+             
               title={memories?.title}
               description={(
                 <>

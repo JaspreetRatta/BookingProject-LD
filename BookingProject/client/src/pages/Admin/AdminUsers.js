@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import { message, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -5,27 +6,36 @@ import PageTitle from "../../components/PageTitle";
 import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
+// Main component function
 function AdminUsers() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // To dispatch actions
 
+  // State for managing users and non-admin user count
   const [users, setUsers] = useState([]);
+  const [nonAdminCount, setNonAdminCount] = useState(0);
 
+  // Function to retrieve users
   const getUsers = async () => {
     try {
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/users/get-all-users", {});
       dispatch(HideLoading());
       if (response.data.success) {
-        setUsers(response.data.data);
+        setUsers(response.data.data); // Set user data if response is successful
+
+        // Filter out admins and set non-admin count
+        const nonAdminUsers = response.data.data.filter((user) => !user.isAdmin);
+        setNonAdminCount(nonAdminUsers.length);
       } else {
-        message.error(response.data.message);
+        message.error(response.data.message); // Show error message if there's an issue
       }
     } catch (error) {
       dispatch(HideLoading());
-      message.error(error.message);
+      message.error(error.message); // Error handling
     }
   };
 
+  // Function to update user permissions
   const updateUserPermissions = async (user, action) => {
     try {
       let payload = null;
@@ -58,17 +68,18 @@ function AdminUsers() {
       );
       dispatch(HideLoading());
       if (response.data.success) {
-        getUsers();
+        getUsers(); // Refresh the users list
         message.success(response.data.message);
       } else {
-        message.error(response.data.message);
+        message.error(response.data.message); // Error handling for unsuccessful operation
       }
     } catch (error) {
       dispatch(HideLoading());
-      message.error(error.message);
+      message.error(error.message); // Error handling
     }
   };
 
+  // Column definitions for the table
   const columns = [
     {
       title: "Name",
@@ -79,21 +90,32 @@ function AdminUsers() {
       dataIndex: "email",
     },
     {
+      title: "Registered At",
+      dataIndex: "createdAt",
+      render: (date) => {
+        const formattedDate = new Date(date).toLocaleDateString("en-US", {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        return formattedDate; // Formatting registration date
+      },
+    },
+    {
       title: "Status",
       dataIndex: "",
       render: (data) => {
-        return data.isBlocked ? "Blocked" : "Active";
+        return data.isBlocked ? "Blocked" : "Active"; // Displaying user status
       },
     },
     {
       title: "Role",
       dataIndex: "",
       render: (data) => {
-        console.log(data);
         if (data?.isAdmin) {
           return "Admin";
         } else {
-          return "User";
+          return "User"; // Determining user role
         }
       },
     },
@@ -123,7 +145,7 @@ function AdminUsers() {
               className="underline"
               onClick={() => updateUserPermissions(record, "remove-admin")}
             >
-              Remove Admin
+              
             </p>
           )}
           {!record?.isAdmin && (
@@ -131,26 +153,30 @@ function AdminUsers() {
               className="underline"
               onClick={() => updateUserPermissions(record, "make-admin")}
             >
-              Make Admin
+              
             </p>
           )}
-        </div>
+        </div> // Action buttons for managing user permissions
       ),
     },
   ];
 
+  // Effect hook to get users on component mount
   useEffect(() => {
     getUsers();
   }, []);
+
+  // Rendering the component
   return (
     <div>
       <div className="d-flex justify-content-between my-2">
         <PageTitle title="Users" />
+        <p>Total Non-Admin Users: {nonAdminCount}</p> {/* Display total number of non-admin users */}
       </div>
-
-      <Table columns={columns} dataSource={users} />
+      <Table columns={columns} dataSource={users} /> {/* Users table */}
     </div>
   );
 }
 
+// Exporting the component
 export default AdminUsers;

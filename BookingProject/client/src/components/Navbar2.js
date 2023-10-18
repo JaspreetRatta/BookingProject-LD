@@ -15,7 +15,8 @@ function Navbar2({ activeRoute, user, userMenu, navigate }) {
       <header>
         <div className="con-logo">
           <a href="/ ">
-            <h3 className="logo-text">HoHo</h3>
+            <h4 className="logo-text">HoHo</h4>
+            Welcome {user?.name}
           </a>
         </div>
 
@@ -73,3 +74,4 @@ function Navbar2({ activeRoute, user, userMenu, navigate }) {
 }
 
 export default Navbar2;
+

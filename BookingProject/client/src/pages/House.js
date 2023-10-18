@@ -105,10 +105,10 @@ const House = () => {
         <Container>
           <Row>
             <Col lg="12" className="mb-5">
-             
+
               <h2 className="featured__tour-title">HoHo Travels</h2>
               <p>
-              Introducing HoHo Travels - where bus and tour management becomes a breeze. We understand the complexities of managing tours, from scheduling buses to ensuring every traveler has a memorable experience. That's why we've developed a system that brings together cutting-edge technology and user-friendly interfaces. With HoHo Travels, managing tours is not just efficient—it's enjoyable
+                Introducing HoHo Travels - where bus and tour management becomes a breeze. We understand the complexities of managing tours, from scheduling buses to ensuring every traveler has a memorable experience. That's why we've developed a system that brings together cutting-edge technology and user-friendly interfaces. With HoHo Travels, managing tours is not just efficient—it's enjoyable
               </p>
             </Col>
 
@@ -118,10 +118,10 @@ const House = () => {
       {/* ============ featured tour section end ============ */}
 
       <section className="services">
-        <div className="container text-center1 py-5">
+        <div className="container">
 
           <h1>About our Website</h1>
-   <br/>
+          <br />
           <div className="row">
             <div className="col-md-4">
               <div className="card">
@@ -129,12 +129,12 @@ const House = () => {
                   <i className="fa fa-bar-chart myicon"></i>
                   <h1>Save Memories</h1>
                   <p>
-                  Travel is more than just reaching a destination; it's about the stories, experiences, and memories we create along the way. With our "Save Travel Memory" function, HoHo Travels ensures that every moment of your journey is preserved. Whether it's a breathtaking sunset you witnessed from the bus window, a heartwarming interaction with a fellow traveler, or the thrill of exploring a new city, our system allows you to capture and store these memories with ease.
+                    Travel is more than just reaching a destination; it's about the stories, experiences, and memories we create along the way. With our "Save Travel Memory" function, HoHo Travels ensures that every moment of your journey is preserved. Whether it's a breathtaking sunset you witnessed from the bus window, a heartwarming interaction with a fellow traveler, or the thrill of exploring a new city, our system allows you to capture and store these memories with ease.
 
-      
+
 
                   </p>
-              
+
                 </div>
               </div>
             </div>
@@ -142,12 +142,13 @@ const House = () => {
               <div className="card">
                 <div className="card-body">
                   <i className="fa fa-bell-o myicon"></i>
-                  <h1>Affordable Tours</h1>
+                  <h1>Disussion Room</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis, officiis
-                    labore harum sequi deleniti itaque rem ea? Labore repellat
-                    doloribus, beatae perferendis placeat recusandae nam!
+                    Connect, share, and grow with the HoHo Travels' Discussion Room.
+                     This is a dedicated space where wanderlust spirits unite, a forum for 
+                     exchanging stories, advice, and inspiration. 
+                     Whether you're a seasoned traveler or just starting, here, every question is welcome, 
+                     and every story is cherished.
                   </p>
                 </div>
               </div>
@@ -156,12 +157,12 @@ const House = () => {
               <div className="card">
                 <div className="card-body">
                   <i className="fa fa-braille myicon"></i>
-                  <h1>Best Explanation</h1>
+                  <h1>Points and Promotions</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis, officiis
-                    labore harum sequi deleniti itaque rem ea? Labore repellat
-                    doloribus, beatae perferendis placeat recusandae nam!
+                  Travel more, gain more with HoHo Travels' Points and Promotions!
+                   Every journey you take, review you write, or tip you share can earn you points,
+                    making you eligible for exciting promotions.
+                   The more active you are, the more you're rewarded.
                   </p>
                 </div>
               </div>
@@ -169,74 +170,119 @@ const House = () => {
           </div>
         </div>
       </section>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
-      <section>
-        <div className="mb-5">
-          <h1 className="mb-3">Recent Bus</h1>
-
-          <Row 
-           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          >
-              {buses
-                .filter((buses) => buses.status === "Yet To Start")
-                .map((buses) => (
-                  <Col style={{ margin: "0 10px" }}>
-                    <RecentBus buses={buses} id={buses.id} />
-                  </Col>
-                ))}
-          </Row>
-
-        </div>
-        </section>
-  <section>
-        <div className="mb-5">
-          <h1 className="mb-3">Recent Tour</h1>
-          <Row
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {tour
-              .filter((tour) => tour.status === "Yet To Start")
-              .map((tour) => (
-                <Col lg={8} style={{ maxWidth: "300px", margin: "0 10px" }}>
-                  <RecentTour tour={tour} id={tour.id} />
-                </Col>
-              ))}
-          </Row>
-        </div>
-      </section>
-
-      
+      {/* ============ featured tour section start ============ */}
       <section>
         <Container>
           <Row>
-            <Col lg="12" className="mb-5">
-              
+            <div className="mb-5">
+
+              <h1 className="mb-3">Recent Bus</h1>
+
+              <Row
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {buses
+                  .filter((buses) => buses.status === "Yet To Start")
+                  .map((buses) => (
+                    <Col style={{ margin: "0 10px" }}>
+                      <RecentBus buses={buses} id={buses.id} />
+                    </Col>
+                  ))}
+              </Row>
+
+            </div>
+          </Row>
+        </Container>
+      </section>
+      {/* ============ featured bus section end ============ */}
+
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+
+
+
+      {/* ============ featured tour section start ============ */}
+      <section>
+        <Container>
+          <Row>
+            <div className="mb-5">
+              <h1 className="mb-3">Recent Tour</h1>
+              <Row
+                style={{
+                  display: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {tour
+                  .filter((tour) => tour.status === "Yet To Start")
+                  .map((tour) => (
+                    <Col lg={8} style={{ maxWidth: "300px", margin: "0 10px" }}>
+                      <RecentTour tour={tour} id={tour.id} />
+                    </Col>
+                  ))}
+              </Row>
+            </div>
+          </Row>
+        </Container>
+      </section>
+      {/* ============ featured bus section end ============ */}
+
+
+
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+
+
+      <section>
+        <Container>
+          <Row>
+            <Col lg="8" className="mb-2">
+
               <h1 className="featured__tour-title">Let's Get In Touch!</h1>
               <p>
-              Ready to travel and create memories with us? Give us a call or send us an
-            email and we will get back to you as soon as possible!
+                Ready to travel and create memories with us? Give us a call or send us an
+                email and we will get back to you as soon as possible!
               </p>
               <i className="fa fa-phone myicon text-warning"></i>
-          <i className="fa fa-heart myicon text-danger"></i>
-          <p>+667930453444</p>
-          <p>saiyaanpyaare@gmaill.com</p>
+              <i className="fa fa-heart myicon text-danger"></i>
+              <p>+66869808102</p>
+              <p>travelshoho@gmail.com</p>
             </Col>
 
           </Row>
         </Container>
       </section>
-     
+
+      <br />
+      <br />
 
 
-     
+
+
     </>
   );
 };

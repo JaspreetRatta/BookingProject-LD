@@ -3,6 +3,8 @@ import FileUpload from "./FileUpload";
 import { axiosInstance } from "../../../helpers/axiosInstance";
 import { Col, Form, message, Modal, Row } from "antd";
 import { useDispatch } from "react-redux";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
 import { HideLoading, ShowLoading } from "../../../redux/alertsSlice";
 
 const initialstate = {
@@ -28,6 +30,9 @@ const CreateTour = ({
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const handleChangeQuill = (content) => {
+    setValues({ ...values, details: content });
   };
 
   const handleSubmit = (e) => {
@@ -97,15 +102,16 @@ const CreateTour = ({
             />
           </div>
           <div className="form-group">
-            <label>Description</label>
-            <input
-              className="form-control"
-              type="text"
-              name="description"
-              value={values.description}
-              onChange={handleChange}
-            />
-          </div>
+    <label>Description</label>
+    <textarea
+        className="form-control"
+        name="description"
+        value={values.description}
+        onChange={handleChange}
+        rows="4"  // Specifies the number of visible text lines
+        cols="50" // Specifies the number of visible text columns
+    />
+</div>
 
           <div className="form-group">
             <label>Duration</label>
@@ -117,15 +123,17 @@ const CreateTour = ({
               onChange={handleChange}
             />
           </div>
+          <Col lg={12} xs={24}>
+            <Form.Item label="Package left" name="package">
+              <input type="text" />
+            </Form.Item>
+          </Col>
 
           <div className="form-group">
-            <label>details</label>
-            <input
-              className="form-control"
-              type="text"
-              name="details"
-              value={values.details}
-              onChange={handleChange}
+            <label>Details</label>
+            <ReactQuill 
+              value={values.details} 
+              onChange={handleChangeQuill}
             />
           </div>
           <label>Images</label>

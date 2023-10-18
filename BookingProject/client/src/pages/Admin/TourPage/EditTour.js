@@ -3,6 +3,8 @@ import FileUpload from "./FileUpload";
 import { axiosInstance } from "../../../helpers/axiosInstance";
 import { Col, Form, message, Modal, Row } from "antd";
 import { useDispatch } from "react-redux";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
 import { HideLoading, ShowLoading } from "../../../redux/alertsSlice";
 
 const initialstate = {
@@ -28,6 +30,10 @@ const CreateTour = ({
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+  const handleChangeQuill = (content) => {
+    setValues({ ...values, details: content });
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +61,7 @@ const CreateTour = ({
   return (
     <Modal
       width={800}
-      title="Update Bus"
+      title="Update Tour"
       visible={showBusForm}
       onCancel={() => {
         setSelectedBus(null);
@@ -77,7 +83,7 @@ const CreateTour = ({
           </div>
 
           <div className="form-group">
-            <label>journeyDate</label>
+            <label>Journey Date</label>
             <input
               className="form-control"
               type="date"
@@ -121,14 +127,14 @@ const CreateTour = ({
 
           <div className="form-group">
             <label>details</label>
-            <input
-              className="form-control"
-              type="text"
-              name="details"
-              value={values.details}
-              onChange={handleChange}
+            <ReactQuill 
+              value={values.details} 
+              onChange={handleChangeQuill}
             />
+        
           </div>
+
+      
           <label>Images</label>
           <FileUpload values={values} setValues={setValues} />
 
@@ -144,3 +150,4 @@ const CreateTour = ({
 };
 
 export default CreateTour;
+

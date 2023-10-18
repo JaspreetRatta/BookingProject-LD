@@ -102,7 +102,7 @@ function ShowBus() {
                       style={{ display: "flex", justifyContent: "flex-end" }}
                       className="mb-5"
                     >
-                      per aduit
+                      per person
                     </p>
                     <div class="btn btn-success mb-3 ">
                       <Link class="text-light" to={`/book-now/${params.id}`}>

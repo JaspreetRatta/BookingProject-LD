@@ -73,13 +73,26 @@ const BookingsTour = () => {
       title: 'Tour Name',
       dataIndex: 'title',
       key: 'tour',
-      width: '50%',
+      width: '20%',
     },
     {
       title: 'Journey Date',
       dataIndex: 'journeyDate',
-      width: '30%',
+      width: '20%',
     },
+    {
+      title: "Discount",
+      dataIndex: "discount", // this should match the field in your booking records
+      key: "discount", // unique key for react list
+      render: (discount) => {
+        // you can format the value here, this example assumes discount is a number
+        // if discount value is 0, we display 'None', otherwise we display the discount value
+        return discount ? `฿${discount}` : 'None';
+        
+      },
+      width: '15%',
+    },
+
     {
       title: 'Action',
       dataIndex: 'action',
@@ -199,7 +212,9 @@ const BookingsTour = () => {
             </p>
             <hr />
             <p>
-              <span>Total Amount :</span> {selectedBooking.price}
+  <span>Total Amount :</span> {selectedBooking.price - selectedBooking.discount}
+
+
             </p>
           </div>
         </Modal>

@@ -11,6 +11,7 @@ const Bookings = () => {
   const { users } = useSelector((state) => ({ ...state }));
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const COMMISSION = 70; // 70 THB commission
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showReview, setShowReview] = useState(false);
@@ -84,8 +85,23 @@ const Bookings = () => {
       dataIndex: "journeyDate",
     },
     {
-      title: "Journey Time",
-      dataIndex: "departure",
+      title: "Price",
+      dataIndex: "fare",
+    },
+    {
+      title: "Snacks",
+      dataIndex: "commission",
+      render: () => `฿${COMMISSION}`, // Display the fixed commission
+    },
+    {
+      title: "Discount",
+      dataIndex: "discount", // this should match the field in your booking records
+      key: "discount", // unique key for react list
+      render: (discount) => {
+        // you can format the value here, this example assumes discount is a number
+        // if discount value is 0, we display 'None', otherwise we display the discount value
+        return discount ? `฿${discount}` : 'None';
+      },
     },
     {
       title: "Seats",
@@ -217,11 +233,12 @@ const Bookings = () => {
             <hr />
             <p>
               <span>Seat Numbers:</span> <br />
-              {selectedBooking.seats}
+              {selectedBooking.seats.join(', ')}
             </p>
             <hr />
             <p>
-              <span>Total Amount:</span> {selectedBooking.fare * selectedBooking.seats.length - selectedBooking.discount} /-
+            <span>Total Amount:</span> {(selectedBooking.fare + COMMISSION) * selectedBooking.seats.length - selectedBooking.discount} /-
+
             </p>
           </div>
         </Modal>

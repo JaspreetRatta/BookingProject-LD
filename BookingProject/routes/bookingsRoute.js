@@ -69,7 +69,7 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
     const payment = await stripe.charges.create(
       {
         amount: amount,
-        currency: "inr",
+        currency: "THB",
         customer: customer.id,
         receipt_email: token.email,
       },
@@ -156,6 +156,28 @@ router.post("/get-all-bookings", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/get-all-bookings-tour", authMiddleware, async (req, res) => {
+  try {
+    const bookings = await BookingTour.find()
+    .populate("tour")
+    .populate("user")
+   
+    res.status(200).send({
+      message: "Bookings fetched successfully",
+      data: bookings,
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Bookings fetch failed",
+      data: error,
+      success: false,
+    });
+  }
+});
+
+
+
 const addPoint = async (id) => {
   try {
     const user = await User.findById(id);
@@ -170,6 +192,8 @@ const addPoint = async (id) => {
     return false;
   }
 };
+
+
 
 const removePoint = async (id, point) => {
   try {
