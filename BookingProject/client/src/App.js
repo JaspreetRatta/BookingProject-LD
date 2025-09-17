@@ -16,7 +16,7 @@ import AddMemory from "./Diary/AddMemory";
 import MemoryList from "./Diary/MemoryList";
 import ShowMore from "./Diary/showmore";
 
-import DDRoom from "./pages/map/DDRoom";
+
 import AdminBookingsTourr from "./pages/Admin/booktour";
 import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -140,14 +140,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/client/src/pages/map/DDRoom.js"
-            element={
-              <ProtectedRoute>
-                <DDRoom />
-              </ProtectedRoute>
-            }
-          />
+          
           <Route
             path="/client/src/pages/ContactForm"
             element={

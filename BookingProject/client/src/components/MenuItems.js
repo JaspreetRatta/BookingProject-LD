@@ -12,29 +12,26 @@ const MenuItems = [
     path: "/tour",
   },
  
-  {
-    name: "Profile",
-    icon: "ri-user-line",
-    path: "/client/src/pages/Profile",
-  },
+ 
 
   {
     name: "Memories",
     icon: "ri-file-list-line",
     path: "/client/src/Diary/AddMemory",
   },
-  {
-    name: "Discussion Room",
-    icon: "ri-file-list-line",
-    path: "/client/src/pages/map/DDRoom.js",
-  },
-
+  
   
   {
     name: "Contact",
     icon: "ri-chat-smile-2-line",
     path: "/client/src/pages/ContactForm",
   },
+  {
+    name: "Profile",
+    icon: "ri-user-line",
+    path: "/client/src/pages/Profile",
+  },
+
   {
     name: "Logout",
     icon: "ri-logout-box-line",

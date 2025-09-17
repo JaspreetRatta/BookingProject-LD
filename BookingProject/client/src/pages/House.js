@@ -138,21 +138,8 @@ const House = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="card">
-                <div className="card-body">
-                  <i className="fa fa-bell-o myicon"></i>
-                  <h1>Disussion Room</h1>
-                  <p>
-                    Connect, share, and grow with the HoHo Travels' Discussion Room.
-                     This is a dedicated space where wanderlust spirits unite, a forum for 
-                     exchanging stories, advice, and inspiration. 
-                     Whether you're a seasoned traveler or just starting, here, every question is welcome, 
-                     and every story is cherished.
-                  </p>
-                </div>
-              </div>
-            </div>
+            
+            
             <div className="col-md-4">
               <div className="card">
                 <div className="card-body">
